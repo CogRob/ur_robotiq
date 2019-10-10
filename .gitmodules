@@ -1,0 +1,9 @@
+[submodule "universal_robot"]
+	path = universal_robot
+	url = https://github.com/ros-industrial/universal_robot
+[submodule "robotiq"]
+	path = robotiq
+	url = https://github.com/ros-industrial/robotiq
+[submodule "Universal_Robots_ROS_Driver"]
+	path = Universal_Robots_ROS_Driver
+	url = https://github.com/UniversalRobots/Universal_Robots_ROS_Driver
