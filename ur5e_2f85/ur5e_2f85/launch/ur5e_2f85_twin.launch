@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<launch>
+  <arg default="true" doc="If true, limits joint range [-PI, PI] on all joints." name="limited"/>
+  <arg default="false" doc="Starts gazebo in paused mode" name="paused"/>
+  <arg default="true" doc="Starts gazebo gui" name="gui"/>
+  <arg default="true" doc="If True, simulated instance of UR5e" name="sim"/>
+  <arg default="false" doc="If True, MoveIt will run in debugging mode" name="debug"/>
+  <arg default="left_" doc="The left (from base link reference frame) robot's name prefix" name="left_prefix"/>
+  <arg default="right_" doc="The right (from base link reference frame) robot's name prefix" name="right_prefix"/>
+  <arg default="false" doc="If True, MoveIt will run in debugging mode" name="moveit_debug"/>
+
+  <arg name="left_base_x" default="-2"/>
+  <arg name="left_base_y" default="0"/>
+  <arg name="left_base_z" default="0.4"/>
+  <arg name="left_base_R" default="0"/>
+  <arg name="left_base_P" default="0"/>
+  <arg name="left_base_Y" default="0"/>
+  
+  <arg name="right_base_x" default="2"/>
+  <arg name="right_base_y" default="0"/>
+  <arg name="right_base_z" default="0.4"/>
+  <arg name="right_base_R" default="0"/>
+  <arg name="right_base_P" default="0"/>
+  <arg name="right_base_Y" default="3.14159"/>
+
+  <!-- load up params to param server -->
+  <rosparam command="load" file="$(find ur5e_2f85)/config/ur5e_2f85_params.yaml"/>
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg default="worlds/empty.world" name="world_name"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+
+  </include>
+  <group ns="left">
+    <!-- Create left robot -->
+    <include file="$(find ur5e_2f85)/launch/spawn_ur5e_2f85.launch">
+      <arg name="limited" value="$(arg limited)"/>
+      <arg name="sim" value="$(arg sim)"/>
+      <arg name="moveit_debug" value="$(arg moveit_debug)"/>
+      <arg name="base_x" value="$(arg left_base_x)"/>
+      <arg name="base_y" value="$(arg left_base_y)"/>
+      <arg name="base_z" value="$(arg left_base_z)"/>
+      <arg name="base_R" value="$(arg left_base_R)"/>
+      <arg name="base_P" value="$(arg left_base_P)"/>
+      <arg name="base_Y" value="$(arg left_base_Y)"/>
+      <arg name="prefix" value="left"/>
+    </include>
+  </group>
+
+  <group ns="right">
+    <!-- Create right robot -->
+    <include file="$(find ur5e_2f85)/launch/spawn_ur5e_2f85.launch">
+      <arg name="limited" value="$(arg limited)"/>
+      <arg name="sim" value="$(arg sim)"/>
+      <arg name="moveit_debug" value="$(arg moveit_debug)"/>
+      <arg name="base_x" value="$(arg right_base_x)"/>
+      <arg name="base_y" value="$(arg right_base_y)"/>
+      <arg name="base_z" value="$(arg right_base_z)"/>
+      <arg name="base_R" value="$(arg right_base_R)"/>
+      <arg name="base_P" value="$(arg right_base_P)"/>
+      <arg name="base_Y" value="$(arg right_base_Y)"/>
+      <arg name="prefix" value="right"/>
+    </include>
+  </group>
+
+  <!--
+  <node pkg="tf" type="static_transform_publisher" name="world_to_left_base_link" args="$(arg left_base_x) $(arg left_base_y) $(arg left_base_z) $(arg left_base_R)$ (arg left_base_P) $(arg left_base_Y) /left/base_link /map"/>
+  
+  <node pkg="tf" type="static_transform_publisher" name="world_to_right_base_link" args="$(arg right_base_x) $(arg right_base_y) $(arg right_base_z) $(arg right_base_R)$ (arg right_base_P) $(arg right_base_Y) /map /right/base_link"/>
+  -->
+
+</launch>

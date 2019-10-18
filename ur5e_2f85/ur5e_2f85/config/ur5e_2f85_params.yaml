@@ -1,0 +1,15 @@
+mounting_params:
+  left:
+    base_x: -.5
+    base_y: 0
+    base_z: 0.4
+    base_R: 1.57
+    base_P: 1.57
+    base_Y: 0
+  right:
+    base_x: .5
+    base_y: 0
+    base_z: 0.4
+    base_R: 1.57
+    base_P: 1.57
+    base_Y: 0

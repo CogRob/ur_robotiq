@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="base_x"/>
+	<arg name="base_y"/>
+	<arg name="base_z"/>
+	<arg name="base_R"/>
+	<arg name="base_P"/>
+	<arg name="base_Y"/>
+
+	<arg default="false" doc="If true, limits joint range [-PI, PI] on all joints." name="limited"/>
+	<arg default="" doc="To differentiate between multiple robots, set a different prefix for each. NOTE: prefix should end with _" name="prefix"/>
+
+	<param command="$(find xacro)/xacro '$(find ur5e_2f85_description)/urdf/ur5e_2f85_robot.urdf.xacro' base_x:=$(arg base_x) base_y:=$(arg base_y) base_z:=$(arg base_z) base_R:=$(arg base_R) base_P:=$(arg base_P) base_Y:=$(arg base_Y)" name="robot_description" unless="$(arg limited)"/>
+
+	<param command="$(find xacro)/xacro '$(find ur5e_2f85_description)/urdf/ur5e_2f85_joint_limited_robot.urdf.xacro' base_x:=$(arg base_x) base_y:=$(arg base_y) base_z:=$(arg base_z) base_R:=$(arg base_R) base_P:=$(arg base_P) base_Y:=$(arg base_Y)" name="robot_description" if="$(arg limited)"/>
+</launch>

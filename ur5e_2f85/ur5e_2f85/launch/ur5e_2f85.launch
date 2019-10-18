@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+  <arg default="true" doc="If true, limits joint range [-PI, PI] on all joints." name="limited"/>
+  <arg default="false" doc="Starts gazebo in paused mode" name="paused"/>
+  <arg default="true" doc="Starts gazebo gui" name="gui"/>
+  <arg default="true" doc="If True, simulated instance of UR5e" name="sim"/>
+  <arg default="false" doc="If True, MoveIt will run in debugging mode" name="moveit_debug"/>
+  <arg default="" doc="To differentiate between multiple robots, set a different prefix for each" name="prefix"/>
+  <arg default="0.0" doc="The robot's base_link's x coordinate (in meters)" name="base_x"/>
+  <arg default="0.0" doc="The robot's base_link's y coordinate (in meters)" name="base_y"/>
+  <arg default="0.0" doc="The robot's base_link's z coordinate (in meters)" name="base_z"/>
+  <arg default="0" doc="The robot's base_link's Roll amount (in radians)" name="base_R"/>
+  <arg default="0" doc="The robot's base_link's Pitch amount (in radians)" name="base_P"/>
+  <arg default="0" doc="The robot's base_link's Yaw amount (in radians)" name="base_Y"/>
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg default="worlds/empty.world" name="world_name"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+  
+  <!-- Spawn robot -->
+  <include file="$(find ur5e_2f85)/launch/spawn_ur5e_2f85.launch">
+    <arg name="limited" value="$(arg limited)"/>
+    <arg name="sim" value="$(arg sim)"/>
+    <arg name="moveit_debug" value="$(arg moveit_debug)"/>
+    <arg name="prefix" value="$(arg left_prefix)"/>
+    <arg name="base_x" value="$(arg base_x)"/>
+    <arg name="base_y" value="$(arg base_y)"/>
+    <arg name="base_z" value="$(arg base_z)"/>
+    <arg name="base_R" value="$(arg base_R)"/>
+    <arg name="base_P" value="$(arg base_P)"/>
+    <arg name="base_Y" value="$(arg base_Y)"/>
+  </include>
+</launch>

@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<robot name="robotiq_wrist_camera" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="robotiq_wrist_camera" params="parent prefix *origin">
+    <joint name="${prefix}robotiq_wrist_camera_base_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}robotiq_wrist_camera_base_link"/>
+      <xacro:insert_block name="origin"/>
+    </joint>
+    <link name="${prefix}robotiq_wrist_camera_base_link">
+      <inertial>
+        <origin rpy="0 0 0" xyz="0 0 ${-17 / 1000}"/>
+        <mass value="0.300"/>
+        <inertia ixx="${262 / 1000000}" ixy="0" ixz="${1 / 1000000}" iyx="0" iyy="${265 / 1000000}" iyz="${1 / 1000000}" izx="${-1 / 1000000}" izy="${1 / 1000000}" izz="${219 / 1000000}"/>
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <!--<mesh filename="package://uncalibrated_grasping/models/other_models/robotiq_wrist_camera/meshes/robotiq_wrist_camera.STL"/>-->
+          <cylinder length="0.02" radius="0.05"/>
+          <mesh filename="package://ur5e_2f85_description/meshes/robotiq_wrist_camera.STL"/>
+        </geometry>
+        <material name="Robotiq-Black">
+          <color rgba="0.2 0.2 0.2 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <!--<mesh filename="package://uncalibrated_grasping/models/other_models/robotiq_wrist_camera/meshes/robotiq_wrist_camera.STL"/>-->
+          <cylinder length="0.02" radius="0.05"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}robotiq_wrist_camera_base_camera_frame_joint" type="fixed">
+      <parent link="${prefix}robotiq_wrist_camera_base_link"/>
+      <child link="${prefix}robotiq_wrist_camera_frame"/>
+      <origin rpy="${-pi/2} ${-pi/2} ${-pi/2}" xyz="0.05 0.0 0.01"/>
+    </joint>
+
+    <link name="${prefix}robotiq_wrist_camera_frame">
+      <inertial>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <mass value="0.300"/>
+        <inertia ixx="${262 / 1000000}" ixy="0" ixz="${1 / 1000000}" iyx="0" iyy="${265 / 1000000}" iyz="${1 / 1000000}" izx="${-1 / 1000000}" izy="${1 / 1000000}" izz="${219 / 1000000}"/>
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>`
+          <box size="0.005 0.005 0.005"/>
+        </geometry>
+        <material name="Robotiq-Black">
+          <color rgba="0.2 0.2 0.2 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.005 0.005 0.005"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${prefix}robotiq_wrist_camera_frame">
+      <sensor name="openni_camera_camera" type="depth">
+        <always_on>1</always_on>
+        <visualize>true</visualize>
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <depth_camera/>
+          <clip>
+            <near>0.01</near>
+            <far>10</far>
+          </clip>
+        </camera>
+        <plugin filename="libgazebo_ros_openni_kinect.so" name="camera_controller">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30.0</updateRate>
+          <cameraName>robotiq_wrist_camera</cameraName>
+          <frameName>${prefix}robotiq_wrist_camera_frame</frameName>
+          <imageTopicName>image</imageTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudCutoff>0.01</pointCloudCutoff>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+          <CxPrime>0.0</CxPrime>
+          <Cx>0.0</Cx>
+          <Cy>0.0</Cy>
+          <focalLength>0.0</focalLength>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>
