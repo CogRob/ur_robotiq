@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+  <arg default="true" doc="If true, limits joint range [-PI, PI] on all joints." name="limited"/>
+  <arg default="true" doc="If True, simulated instance of UR5e" name="sim"/>
+  <arg default="false" doc="If True, MoveIt will run in debugging mode" name="moveit_debug"/>
+
+  <!-- Create left robot -->
+  <include file="$(find ur5e_2f85)/launch/spawn_ur5e_2f85.launch">
+    <arg name="limited" value="$(arg limited)"/>
+    <arg name="sim" value="$(arg sim)"/>
+    <arg name="moveit_debug" value="$(arg moveit_debug)"/>
+    <arg name="prefix" value="left"/>
+  </include>
+
+  <!-- Create right robot -->
+  <include file="$(find ur5e_2f85)/launch/spawn_ur5e_2f85.launch">
+    <arg name="limited" value="$(arg limited)"/>
+    <arg name="sim" value="$(arg sim)"/>
+    <arg name="moveit_debug" value="$(arg moveit_debug)"/>
+    <arg name="prefix" value="right"/>
+  </include>
+
+  <!-- spawn the robot in gazebo -->
+  <node pkg="ur5e_2f85" name="spawn_right_robot" args="'right'" output="screen" respawn="false" type="spawn_ur5e_2f85.py"/>
+  <node pkg="ur5e_2f85" name="spawn_left_robot" args="'left'" output="screen" respawn="false" type="spawn_ur5e_2f85.py"/>
+
+  <!-- Create TF broadcasters to maintain consistent coordinate frames in RViz and Gazebo -->
+  <node pkg="ur5e_2f85" name="gazebo_to_left_tf" args="'left'" output="screen" respawn="false" type="fixed_tf_broadcaster.py"/>
+  <node pkg="ur5e_2f85" name="gazebo_to_right_tf" args="'right'" output="screen" respawn="false" type="fixed_tf_broadcaster.py"/>
+ </launch>

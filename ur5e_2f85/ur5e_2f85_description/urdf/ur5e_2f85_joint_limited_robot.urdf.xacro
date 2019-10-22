@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro"
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
        name="ur5e_2f85" >
   <!-- Simulated flag -->
   <xacro:property name="sim" value="true"/>
@@ -8,24 +8,6 @@
   <xacro:property name="use_grasp_fix" value="false"/>
 
   <xacro:arg name="prefix" default=""/>
-
-  <!-- 
-  <xacro:arg name="base_x" default="1.0"/>
-  <xacro:arg name="base_y" default="1.0"/>
-  <xacro:arg name="base_z" default="1.0"/>
-  <xacro:arg name="base_R" default="1.0"/>
-  <xacro:arg name="base_P" default="1.0"/>
-  <xacro:arg name="base_Y" default="1.0"/>
-  -->
-
-  <!--
-  <xacro:property name="base_x" value="$(arg base_x)" />
-  <xacro:property name="base_y" value="$(arg base_y)" />
-  <xacro:property name="base_z" value="$(arg base_z)" />
-  <xacro:property name="base_R" value="$(arg base_R)" />
-  <xacro:property name="base_P" value="$(arg base_P)" />
-  <xacro:property name="base_Y" value="$(arg base_Y)" />
-  -->
 
   <!-- The transmission interface to use for UR5e -->
   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
@@ -60,8 +42,7 @@
   <xacro:include filename="$(find robotiq_2f_85_gripper_visualization)/urdf/robotiq_arg2f_85_model_macro.xacro" />
   <xacro:robotiq_arg2f_85 prefix="$(arg prefix)"/>
   
-
-  <joint name="robotiq_wrist_camera_ee_joint" type="fixed">
+  <joint name="robotiq_wrist_camera_arg2f_joint" type="fixed">
     <parent link="robotiq_wrist_camera_base_link" />
     <child link = "robotiq_arg2f_base_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
