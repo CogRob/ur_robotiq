@@ -5,6 +5,7 @@ Collection of packages for using simulated and real universal robots manipulator
 ``` bash
 git submodule update --init
 ```
+Then, install all of the dependencies using rosdep:
 ``` bash
 rosdep install --from-paths src --ignore-src -r -y
 ```
