@@ -9,7 +9,7 @@ Then, install all of the dependencies using rosdep:
 ``` bash
 rosdep install --from-paths src --ignore-src -r -y
 ```
-
+Clone the universal_robot repo, specifically the calibration_devel branch to make use of the new calibration parameters that yield higher accuracy motions:
 ``` bash
 git clone -b calibration_devel https://github.com/fmauch/universal_robot.git
 ```
