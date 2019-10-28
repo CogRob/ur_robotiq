@@ -5,6 +5,10 @@ Collection of packages for using simulated and real universal robots manipulator
 ``` bash
 git submodule update --init
 ```
+``` bash
+rosdep install --from-paths src --ignore-src -r -y
+```
+
 ## MoveIt Control Steps:
 
 First start the docker container (docker_image and instructions in uncalibrated_grasping/docker/melodic_ur_robotiq)
