@@ -10,6 +10,10 @@ Then, install all of the dependencies using rosdep:
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
+``` bash
+git clone -b calibration_devel https://github.com/fmauch/universal_robot.git
+```
+
 ## MoveIt Control Steps:
 
 First start the docker container (docker_image and instructions in uncalibrated_grasping/docker/melodic_ur_robotiq)
