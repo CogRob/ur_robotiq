@@ -1,6 +1,10 @@
 # ur_robotiq
-Collection of packages for using simulated and real universal robots manipulators with Robotiq grippers.
+Collection of packages for using simulated and real universal robots manipulators with Robotiq grippers. This repo uses git submodules, so after cloning the repo you need to update the submodules:
 
+
+``` bash
+git submodule update --init
+```
 ## MoveIt Control Steps:
 
 First start the docker container (docker_image and instructions in uncalibrated_grasping/docker/melodic_ur_robotiq)
