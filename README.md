@@ -37,9 +37,15 @@ Now, you can use the standard MoveIt interface to control the arm :)
 
 error:
 libGL error: No matching fbConfigs or visuals found
+
 libGL error: failed to load driver: swrast
+
 X Error of failed request:  GLXBadContext
+
   Major opcode of failed request:  154 (GLX)
+  
   Minor opcode of failed request:  6 (X_GLXIsDirect)
+  
   Serial number of failed request:  35
+  
   Current serial number in output stream:  34
