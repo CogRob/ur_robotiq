@@ -1,6 +1,3 @@
-[submodule "universal_robot"]
-	path = universal_robot
-	url = https://github.com/ros-industrial/universal_robot
 [submodule "robotiq"]
 	path = robotiq
 	url = https://github.com/ros-industrial/robotiq
