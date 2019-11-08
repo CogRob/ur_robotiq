@@ -21,16 +21,22 @@ Use tmux (or any other teminal splitter) to open 3 terminals and run the followi
 ``` bash
 roslaunch ur_robot_driver ur5e_bringup.launch robot_ip:=192.168.90.101 limited:=true info:=true
 ```
-[launch robot in gazebo]
-``` bash
-roslaunch ur_e_gazebo ur5e_joint_limited.launch
-``` 
 ``` bash
 roslaunch ur5_e_moveit_config ur5_e_moveit_planning_execution.launch limited:=true info:=true
 ```
 ``` bash
 roslaunch ur5_e_moveit_config moveit_rviz.launch config:=true
+```
 
+[launch robot in gazebo]
+``` bash
+roslaunch ur_e_gazebo ur5e_joint_limited.launch
+``` 
+``` bash
+roslaunch ur5_e_moveit_config ur5_e_moveit_planning_execution.launch limited:=true info:=true sim:=true
+```
+``` bash
+roslaunch ur5_e_moveit_config moveit_rviz.launch config:=true
 ```
 
 If using tmux Ctrl-b followed by " will split the current terminal window vertically, and Ctrl-b followed by up and down arrow keys enable you to move about the different terminal windows.
