@@ -20,7 +20,9 @@
   </include>
   
   <!-- Spawn a table at the origin, slightly shifted down in Z-->
+  <!--
   <node name="spawn_table" pkg="gazebo_ros" type="spawn_model" args="-file /home/james/.gazebo/models/cafe_table/model.sdf -sdf -x 1.0 -y 0.0 -z -.4 -model table"/>
+  -->
   
   <!-- Send robot urdf to param server -->
   <node args="--robot_side single --limited True" name="upload_ur5e_2f85" output="screen" pkg="ur5e_2f85" type="upload_ur5e_2f85.py" respawn="false"/>

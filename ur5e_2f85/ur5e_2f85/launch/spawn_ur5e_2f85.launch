@@ -4,13 +4,8 @@
   <arg default="true" doc="If True, simulated instance of UR5e" name="sim"/>
   <arg default="false" doc="If True, MoveIt will run in debugging mode" name="moveit_debug"/>
 
-  <arg name="base_x" doc="The robot's base_link's x coordinate (in meters)" default="0.0"/>
-  <arg name="base_y" doc="The robot's base_link's y coordinate (in meters)" default="0.0"/>
-  <arg name="base_z" doc="The robot's base_link's z coordinate (in meters)"  default="0.0"/>
-  <arg name="base_R" doc="The robot's base_link's Roll amount (in radians)" default="0"/>
-  <arg name="base_P" doc="The robot's base_link's Pitch amount (in radians)" default="0"/>
-  <arg name="base_Y" doc="The robot's base_link's Yaw amount (in radians)" default="0"/>
   <arg name="prefix" doc="To differentiate between multiple robots, set a different prefix for each. NOTE: prefix should end with _" default=""/>
+
   <group ns="$(arg prefix)">
     <!-- Simulated components -->
     <group if="$(arg sim)">

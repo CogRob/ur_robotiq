@@ -10,8 +10,8 @@ import os
 from ur5e_2f85_util import load_ur5e_2f85_params
 
 
-def upload_ur5e_2f85(robot_side, limited=True):
-    x, y, z, R, P, Y = load_ur5e_2f85_params(robot_side)
+def upload_ur5e_2f85(robot_side, limited=True, sim=True):
+    x, y, z, R, P, Y, kinematics_file = load_ur5e_2f85_params(robot_name=robot_side, sim=sim)
 
     rospack = rospkg.RosPack()
     ur5e_2f85_description_path = rospack.get_path('ur5e_2f85_description')
@@ -29,8 +29,7 @@ def upload_ur5e_2f85(robot_side, limited=True):
 
     try:
         # Build the URDF from xacro
-        command_string = "rosrun xacro xacro {} base_x:={} base_y:={} base_z:={} base_R:={} base_P:={} base_Y:={}".format(
-            model_filepath, x, y, z, R, P, Y)
+        command_string = "rosrun xacro xacro {} base_x:={} base_y:={} base_z:={} base_R:={} base_P:={} base_Y:={} kinematics_file:={}".format( model_filepath, x, y, z, R, P, Y, kinematics_file)
         # Extact the output URDF as robot_description
         robot_description = subprocess.check_output(
             command_string, shell=True, stderr=subprocess.STDOUT)

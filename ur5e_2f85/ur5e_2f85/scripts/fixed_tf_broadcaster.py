@@ -18,14 +18,15 @@ if __name__ == '__main__':
         if(robot_side not in ['left', 'right', 'single']):
             raise ValueError(
                 'Robot side should be either \'left\', \'right\' or \'single\'!, got {}'.format(robot_side))
+        sim = sys.argv[2]
     else:
         raise ValueError(
-            'Make sure to pass in robot_side (\'left\', \'right\' or \'single\'!')
+            'Make sure to pass in robot_side (\'left\', \'right\' or \'single\' and sim param!')
 
     rospy.init_node(
         robot_side + '_to_gazebo_origin_tf_broadcaster', log_level=rospy.DEBUG)
 
-    x, y, z, R, P, Y = load_ur5e_2f85_params(robot_side)
+    x, y, z, R, P, Y, __ = load_ur5e_2f85_params(robot_side, sim)
     # Convert R, P, Y to quaternion
     q = quaternion_from_euler(R, P, Y)
 
