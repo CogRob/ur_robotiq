@@ -21,6 +21,8 @@
 
   <!-- Create the UR5e, limiting each joint -->
 
+  <xacro:arg name="kinematics_config" default="$(find ur_e_description)/config/ur5e_default.yaml"/>
+
   <!-- arm -->
   <xacro:ur5e_robot prefix="" joint_limited="true"
     shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
@@ -29,16 +31,18 @@
     wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}"
     wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}"
     wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}"
-    transmission_hw_interface="$(arg transmission_hw_interface)"
+    kinematics_file="${load_yaml('$(arg kinematics_config)')}"
   />
-  
   <!-- Create the Robotiq wrist camera --> 
+  <!--
   <xacro:include filename="$(find ur5e_2f85_description)/urdf/robotiq_wrist_camera.urdf.xacro" />
   <xacro:robotiq_wrist_camera parent="ee_link" prefix="$(arg prefix)">
     <origin xyz="0.0 0.0 0.0" rpy="0.0 ${pi/2} 0.0"/>
   </xacro:robotiq_wrist_camera>
+  -->
 
   <!-- Create the Robotiq 2F-85 gripper --> 
+  <!--
   <xacro:include filename="$(find robotiq_2f_85_gripper_visualization)/urdf/robotiq_arg2f_85_model_macro.xacro" />
   <xacro:robotiq_arg2f_85 prefix="$(arg prefix)"/>
   
@@ -47,7 +51,8 @@
     <child link = "robotiq_arg2f_base_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
-
+  -->
+  
   <!-- Dummy link --> 
   <link name="world" />
 

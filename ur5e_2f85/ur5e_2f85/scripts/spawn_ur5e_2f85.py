@@ -12,8 +12,8 @@ This involves spawning the model into the Gazebo world.
 """
 
 
-def spawn_ur5e_2f85(robot_side):
-    x, y, z, R, P, Y = load_ur5e_2f85_params(robot_side)
+def spawn_ur5e_2f85(robot_side, sim):
+    x, y, z, R, P, Y, __ = load_ur5e_2f85_params(robot_side, sim)
     robot_description = rospy.get_param(
         '/' + robot_side + '/robot_description')
 
@@ -60,7 +60,7 @@ def spawn_ur5e_2f85(robot_side):
 
 def main():
     rospy.init_node("spawn_ur5e_2f85", log_level=rospy.DEBUG)
-    spawn_ur5e_2f85(sys.argv[1])
+    spawn_ur5e_2f85(sys.argv[1], sim=sys.argv[2])
 
 
 if __name__ == '__main__':
