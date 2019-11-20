@@ -8,7 +8,7 @@
     </joint>
     <link name="${prefix}robotiq_wrist_camera_base_link">
       <inertial>
-        <origin rpy="0 0 0" xyz="0 0 ${-17 / 1000}"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
         <mass value="0.300"/>
         <inertia ixx="${262 / 1000000}" ixy="0" ixz="${1 / 1000000}" iyx="0" iyy="${265 / 1000000}" iyz="${1 / 1000000}" izx="${-1 / 1000000}" izy="${1 / 1000000}" izz="${219 / 1000000}"/>
       </inertial>
@@ -16,7 +16,7 @@
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
           <!--<mesh filename="package://uncalibrated_grasping/models/other_models/robotiq_wrist_camera/meshes/robotiq_wrist_camera.STL"/>-->
-          <cylinder length="0.02" radius="0.05"/>
+          <cylinder length="0.02" radius="0.04"/>
           <mesh filename="package://ur5e_2f85_description/meshes/robotiq_wrist_camera.STL"/>
         </geometry>
         <material name="Robotiq-Black">
@@ -27,19 +27,22 @@
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
           <!--<mesh filename="package://uncalibrated_grasping/models/other_models/robotiq_wrist_camera/meshes/robotiq_wrist_camera.STL"/>-->
-          <cylinder length="0.02" radius="0.05"/>
+          <cylinder length="0.02" radius="0.04"/>
         </geometry>
       </collision>
     </link>
 
+
+
     <joint name="${prefix}robotiq_wrist_camera_base_camera_frame_joint" type="fixed">
       <parent link="${prefix}robotiq_wrist_camera_base_link"/>
-      <child link="${prefix}robotiq_wrist_camera_frame"/>
+      <child link="${prefix}robotiq_wrist_camera_link"/>
       <!-- <origin rpy="${-pi/2} ${-pi/2} ${-pi/2}" xyz="0.05 0.0 0.01"/> -->
-      <origin rpy="0 ${-pi/2 + 0.3} 0" xyz="0.05 0.0 0.01"/> <!-- Pitch by an extra 0.3 radians to account for wrist camera angle -->
+      <origin rpy="${pi/2} ${-pi/2} ${-pi/2}" xyz="0.00 0.0 0.015"/> <!-- Pitch by an extra 0.3 radians to account for wrist camera angle -->
     </joint>
+ 
 
-    <link name="${prefix}robotiq_wrist_camera_frame">
+    <link name="${prefix}robotiq_wrist_camera_link">
       <inertial>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <mass value="0.300"/>
@@ -47,7 +50,7 @@
       </inertial>
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
-        <geometry>`
+        <geometry>
           <box size="0.005 0.005 0.005"/>
         </geometry>
         <material name="Robotiq-Black">
@@ -62,7 +65,29 @@
       </collision>
     </link>
 
-    <gazebo reference="${prefix}robotiq_wrist_camera_frame">
+
+    <link name="robotiq_wrist_camera_link_optical">
+    </link>
+
+    <joint name="camera_optical_joint" type="fixed">
+      <!-- these values have to be these values otherwise the gazebo camera
+          image won't be aligned properly with the frame it is supposedly
+          originating from -->
+      <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}"/>
+      <parent link="robotiq_wrist_camera_link"/>
+      <child link="robotiq_wrist_camera_link_optical"/>
+    </joint>
+
+    <link name="robotiq_wrist_camera_frame"/>
+    <joint name="tool0_robotiq_wrist_camera_frame" type="fixed">
+      <origin xyz="0 0 0" rpy="${pi} 0 0"/>
+      <parent link="tool0"/>
+      <child link="robotiq_wrist_camera_frame"/>
+    </joint>
+
+
+
+    <gazebo reference="robotiq_wrist_camera_link">
       <sensor name="openni_camera_camera" type="depth">
         <always_on>1</always_on>
         <visualize>true</visualize>
@@ -82,8 +107,8 @@
         <plugin filename="libgazebo_ros_openni_kinect.so" name="camera_controller">
           <alwaysOn>true</alwaysOn>
           <updateRate>30.0</updateRate>
-          <cameraName>robotiq_wrist_camera</cameraName>
-          <frameName>${prefix}robotiq_wrist_camera_frame</frameName>
+          <cameraName>wrist_camera</cameraName>
+          <frameName>robotiq_wrist_camera_link_optical</frameName>
           <imageTopicName>image</imageTopicName>
           <depthImageTopicName>depth/image_raw</depthImageTopicName>
           <pointCloudTopicName>depth/points</pointCloudTopicName>
