@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<!--
+  robotiq_model(prefix)
+-->
+
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="robotiq_model" params="prefix">
+
+    <link name="${prefix}robotiq_85_base_link">
+      <visual>
+        <geometry>
+          <mesh filename="package://robotiq_2f_hand_e_gripper_visualization/meshes/robotiq/visual/hand-e_base.dae"/>
+        </geometry>
+        <origin rpy="1.5707 0 0" xyz="0 0 0.08"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://robotiq_2f_hand_e_gripper_visualization/meshes/robotiq/collision/hand-e_base.dae"/>
+        </geometry>
+        <origin rpy="1.5707 0 0" xyz="0 0 0.08"/>
+      </collision>
+    </link>
+
+    <link name="${prefix}robotiq_85_left_fingertips_link">
+      <visual>
+        <geometry>
+          <mesh filename="package://robotiq_2f_hand_e_gripper_visualization/meshes/robotiq/visual/fingertips.dae"/>
+        </geometry>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0.045"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://robotiq_2f_hand_e_gripper_visualization/meshes/robotiq/visual/fingertips.dae"/>
+        </geometry>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0.045"/>
+      </collision>
+    </link> 
+
+    <link name="${prefix}robotiq_85_right_fingertips_link">
+      <visual>
+        <geometry>
+          <mesh filename="package://robotiq_2f_hand_e_gripper_visualization/meshes/robotiq/visual/fingertips.dae"/>
+        </geometry>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0.045"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://robotiq_2f_hand_e_gripper_visualization/meshes/robotiq/visual/fingertips.dae"/>
+        </geometry>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0.045"/>
+      </collision>
+    </link>
+    <joint name="${prefix}robotiq_85_left_fingertips_joint" type="prismatic">
+      <parent link="${prefix}robotiq_85_base_link"/>
+      <child link="${prefix}robotiq_85_left_fingertips_link"/>
+      <origin rpy="0 0 0" xyz="0 -0.0055 0.0936"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="0" upper="0.0245" velocity="0.01" effort="1000"/>
+    </joint>
+
+    <joint name="${prefix}robotiq_85_right_fingertips_joint" type="prismatic">
+      <parent link="${prefix}robotiq_85_base_link"/>
+      <child link="${prefix}robotiq_85_right_fingertips_link"/>
+      <origin rpy="0 0 3.14" xyz="0 0.0055 0.0936"/>
+      <axis xyz="0 1 0"/>
+      <limit lower="0" upper="0.0245" velocity="0.01" effort="1000"/>
+    </joint>
+  </xacro:macro>
+</robot>
