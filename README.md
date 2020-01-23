@@ -19,7 +19,7 @@ git clone -b calibration_devel https://github.com/fmauch/universal_robot.git
 First start the docker container (docker_image and instructions in uncalibrated_grasping/docker/melodic_ur_robotiq)
 Use tmux (or any other teminal splitter) to open 3 terminals and run the following (in this order, waiting for each to complete):
 ``` bash
-roslaunch ur_robot_driver ur5e_bringup.launch robot_ip:=192.168.90.101 limited:=true info:=true
+roslaunch ur_robot_driver ur5e_bringup.launch robot_ip:=192.168.90.158 limited:=true info:=true
 ```
 ``` bash
 roslaunch ur5_e_moveit_config ur5_e_moveit_planning_execution.launch limited:=true info:=true
